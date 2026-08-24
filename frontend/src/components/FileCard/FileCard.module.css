@@ -1,0 +1,119 @@
+/* FileCard.module.css */
+.fileCard {
+  width: 240px;
+  height: 60px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background-color: #2c2c2e;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  backdrop-filter: blur(2px);
+  position: relative;
+  cursor: default;
+  overflow: hidden;
+}
+
+.fileCard.readOnly .fileRemove {
+  display: none;
+}
+
+.fileCard:hover {
+  background-color: #3d3d3e;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.fileIcon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.fileInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none; /* 让文件信息区域不接收鼠标事件，避免与遮罩冲突 */
+}
+
+.fileName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f9fafb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileDetail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #adb2b8;
+}
+
+.filetype {
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.fileSize {
+  font-size: 11px;
+}
+
+.fileRemove {
+  position: relative;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: #f9fafb;
+  color: #666;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+  display: none;
+  z-index: 2;
+  user-select: none;
+  animation: show 0.2s ease;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fileCard:hover .fileRemove {
+  display: block;
+}
+
+.fileList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}

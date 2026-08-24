@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: antifraud-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: antifraud
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: antifraud2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: antifraud-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  neo4j:
+    image: neo4j:5.26.0-community
+    container_name: antifraud-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/antifraud2026
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - ./data/neo4j_data:/data
+      - ./knowledge_graph/cypher_scripts:/cypher

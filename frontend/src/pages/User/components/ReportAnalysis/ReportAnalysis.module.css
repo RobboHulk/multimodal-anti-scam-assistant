@@ -1,0 +1,1203 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 24px 32px;
+  font-family: "Nunito", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  padding: 0;
+  color: white;
+}
+
+.info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.title {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+}
+
+.timeBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #676767;
+}
+
+.import {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  gap: 8px;
+  background:
+    linear-gradient(120deg, #ff7e5f 0%, #ff7e5f 50%, transparent 50%),
+    linear-gradient(-60deg, #feb47b 0%, #feb47b 50%, transparent 50%),
+    linear-gradient(60deg, #8e44ad 0%, #8e44ad 50%, transparent 50%),
+    linear-gradient(-120deg, #e74c3c 0%, #e74c3c 50%, transparent 50%);
+  background-blend-mode: hard-light;
+  background-size: 200% 200%;
+  transition:
+    transform 0.4s cubic-bezier(0.17, 0.67, 0.3, 1.33),
+    background-position 0.6s ease;
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.5),
+    -1px -1px 1px rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+}
+
+.import:hover {
+  transform: scale(1.05);
+  background-position: 100% 100%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.import::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-20deg);
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.import:hover::before {
+  left: 120%;
+}
+
+.importBtn {
+  padding: 8px 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.importBtn::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024' width='14' height='14'%3E%3Cpath d='M761.056 532.128c0.512-0.993 1.343-1.823 1.792-2.849 8.8-18.304 5.92-40.703-9.664-55.424L399.936 139.744c-19.265-18.209-49.631-17.345-67.872 1.889-18.209 19.264-17.376 49.63 1.889 67.872l316.96 299.839L335.2 813.632c-19.072 18.399-19.648 48.767-1.247 67.872 9.407 9.791 21.984 14.689 34.56 14.689 12 0 24-4.48 33.312-13.44l350.048-337.376c0.673-0.673 0.927-1.6 1.6-2.303 0.513-0.48 1.056-0.833 1.567-1.344 2.72-2.85 4.16-6.339 6.016-9.602z' fill='%23000000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  width: 0;
+  margin: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1),
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.importIcon {
+  background-color: white;
+  color: #000;
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+  flex-shrink: 0;
+}
+
+.importText {
+  flex: 1;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+}
+
+.importBtn:hover .importIcon {
+  transform: scale(0);
+  opacity: 0;
+  width: 0;
+  margin: 0;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1),
+    opacity 0.15s ease,
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.importBtn:hover::before {
+  opacity: 1;
+  transform: scale(1);
+  width: 34px;
+  margin: 0 0 0 0;
+  transition:
+    opacity 0.2s ease 0.15s,
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1) 0.15s,
+    width 0.2s ease 0.15s,
+    margin 0.2s ease 0.15s;
+}
+
+.importBtn::before {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1),
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.importBtn .importIcon {
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1) 0.15s,
+    opacity 0.2s ease 0.15s,
+    width 0.25s ease 0.15s,
+    margin 0.25s ease 0.15s;
+}
+
+.content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.loadingWrapper {
+  color: #e0e0e0;
+}
+
+.emptyState {
+  color: #e0e0e0;
+}
+
+.emptyIcon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.statsCard {
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.25s ease;
+  color: white;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.statsCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.08;
+  border-radius: 12px;
+  transition: opacity 0.2s ease;
+}
+
+.statsCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.statsCard:hover::before {
+  opacity: 0.15;
+}
+
+.statsCard.all::before {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+
+.statsCard.high::before {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+.statsCard.protect::before {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.statsCard.success::before {
+  background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.statsIcon {
+  transition: transform 0.2s ease;
+}
+
+.statsIcon:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.statsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+}
+
+.statsData {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.statsClass {
+  font-size: 12px;
+  color: #888888;
+}
+
+.statsAnalysis {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statsChange {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #10b981;
+  transition: transform 0.2s ease;
+}
+
+.changeData {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.analyTime {
+  font-size: 12px;
+  color: #888888;
+}
+
+.statsChange:hover {
+  transform: translateY(-2px);
+}
+
+.high .direction {
+  transform: rotateX(180deg);
+  /* color: #ef4444; */
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  font-family: "Nunito", sans-serif;
+}
+
+.rowCard {
+  padding: 24px;
+  background-color: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.rowCard:hover {
+  border-color: rgba(124, 58, 237, 0.15);
+}
+
+.recent {
+  grid-column: 1/4;
+}
+
+.recent {
+  display: flex;
+  flex-direction: column;
+}
+
+.riskChartWrapper {
+  flex: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+  position: relative;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  position: relative;
+}
+
+.riskStats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.riskStat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #888888;
+  background: #2d2d2d;
+  padding: 4px 10px;
+  border-radius: 20px;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.riskStat:hover {
+  transform: translateY(-2px);
+}
+
+.riskStatValue {
+  color: #cecece;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.totalIcon {
+  color: white;
+}
+
+.riskDotHigh {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 4px #ef4444;
+}
+
+.riskDotMid {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 4px #f59e0b;
+}
+
+.riskDotLow {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 4px #10b981;
+}
+
+.riskChartWrapper {
+  width: 100%;
+  height: 280px;
+  margin-top: 10px;
+}
+
+.chartPlaceholderSmall {
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.riskTooltip {
+  background: #252525;
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.riskTooltipTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #676767;
+  padding: 12px 18px;
+  background-color: #1d1d1d;
+}
+
+.riskTooltipContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 18px;
+}
+
+.riskTooltipRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 12px;
+  color: #888889;
+}
+
+.tooltipLabelWithIcon {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tooltipLabelWithDot {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tooltipWarningIcon {
+  color: #ef4444;
+}
+
+.riskValue,
+.riskHigh,
+.riskMid,
+.riskLow {
+  font-weight: 700;
+  color: #cecece;
+}
+
+.riskChartWrapper {
+  width: 100%;
+  height: 280px;
+  margin-top: 10px;
+  outline: none;
+  user-select: none;
+}
+
+/* 移除 Recharts 组件聚焦时的白框 */
+.riskChartWrapper:focus,
+.riskChartWrapper:focus-visible,
+.riskChartWrapper:active {
+  outline: none;
+}
+
+/* 移除图表容器内的所有元素聚焦时的白框 */
+.riskChartWrapper *:focus,
+.riskChartWrapper *:focus-visible,
+.riskChartWrapper *:active {
+  outline: none !important;
+}
+
+/* 移除 SVG 元素点击时的白框 */
+.recharts-surface:focus,
+.recharts-surface:focus-visible,
+.recharts-wrapper:focus,
+.recharts-wrapper:focus-visible {
+  outline: none !important;
+}
+
+/* 确保图表容器不产生任何聚焦效果 */
+.recharts-responsive-container {
+  outline: none !important;
+}
+
+/* 移除 tooltip 的默认边框和背景 */
+.recharts-default-tooltip {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+
+/* 确保所有 SVG 元素没有轮廓 */
+svg:focus,
+svg:focus-visible {
+  outline: none !important;
+}
+
+.riskTooltipRow .riskDotHigh,
+.riskTooltipRow .riskDotMid,
+.riskTooltipRow .riskDotLow {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.riskTooltipRow .riskDotHigh {
+  background: #ef4444;
+  box-shadow: 0 0 4px #ef4444;
+}
+
+.riskTooltipRow .riskDotMid {
+  background: #f59e0b;
+  box-shadow: 0 0 4px #f59e0b;
+}
+
+.riskTooltipRow .riskDotLow {
+  background: #10b981;
+  box-shadow: 0 0 4px #10b981;
+}
+
+.cardMain {
+  padding: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #888;
+}
+
+.todayWarning {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 152px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.warnItem {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 5px;
+  user-select: none;
+  transition: transform 0.2s ease;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+  background-color: #111111;
+  box-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.warnItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: skewX(-20deg);
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.warnItem:hover::before {
+  left: 120%;
+}
+
+.warnItem:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.itemLeft,
+.itemRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.itemLeft .warnClass {
+  color: #cecece;
+  font-weight: 600;
+}
+
+.itemRight .warnRisk {
+  font-weight: 600;
+}
+
+.moreItem {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: -10px;
+  letter-spacing: 3px;
+}
+
+.warnIndex {
+  width: 22px;
+  height: 22px;
+  background: #2d2d2d;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+}
+
+.warnClass {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.warnRisk {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.warnRisk:hover {
+  transform: translateY(-2px);
+}
+
+.warnRisk.high {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.warnRisk.mid {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.warnRisk.low {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.warnTime {
+  width: 48px;
+  text-align: end;
+  font-size: 11px;
+  color: #5a5a5a;
+}
+
+.todayTotal {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.todayTotalItem {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: #2d2d2d;
+  color: #cecece;
+}
+.todayTotalItem span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.todayAllIcon {
+  color: #10b981;
+}
+
+.todayHighIcon {
+  color: #10b981;
+}
+
+.todayHigh {
+  color: #ef4444;
+  /* background: rgba(239, 68, 68, 0.15); */
+}
+
+.todayHighNum {
+  color: #cecece;
+}
+
+.todayIcon {
+  transition: transform 0.2s ease;
+}
+
+.todayTotalItem:hover .todayIcon {
+  transform: scale(1.1);
+}
+
+.todayAnalys {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+
+.todayAnalys span:first-child {
+  font-weight: 500;
+}
+
+.todayAnalys span:nth-child(n + 2) {
+  color: #10b981;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.todayAnalys span:nth-child(n + 2):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.class {
+  grid-column: 1/3;
+}
+
+.score {
+  grid-column: 3/5;
+}
+
+.explain {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #2d2d2d;
+  font-size: 12px;
+  font-weight: 700;
+  color: #676767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.explain:hover {
+  background-color: #696969;
+  color: rgb(222, 222, 222);
+  transform: translateY(-2px);
+}
+
+.scoreExplainCard {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  transform: translateX(10%);
+  width: 200px;
+  background: #2d2d2d;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  padding: 16px;
+  color: #cecece;
+  font-size: 12px;
+  display: flex;
+  gap: 3px;
+}
+
+.closeBtn {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #676767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.explainContent {
+  line-height: 1.6;
+}
+
+.emphasis {
+  color: #10b981;
+}
+
+.score .cardMain {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.scoreSvgBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.scoreLine {
+  width: 2px;
+  height: 80%;
+  background-color: #3a3a3a;
+}
+
+.scoreDetail {
+  width: 300px;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scoreLow,
+.scoreHigh {
+  width: 50px;
+}
+
+.scoreLow {
+  padding-left: 24px;
+}
+
+.scoreMid {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreNum {
+  color: #a855f7;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.score .cardMain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 8px;
+  left: 0;
+  transform: translate(0, 100%);
+  line-height: 20px;
+  height: 20px;
+  width: auto;
+  font-size: 12px;
+  color: #676767;
+  white-space: nowrap;
+}
+
+.recent .cardTitle::before {
+  content: "高/中/低风险实时追踪";
+}
+
+.today .cardTitle::before {
+  content: "威胁行为动态预警";
+}
+
+.score .cardTitle::before {
+  content: "安全防护能力评分";
+}
+
+.class .cardTitle::before {
+  content: "多模态威胁类型识别分布";
+}
+
+.scoreAdvice {
+  flex: 1;
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: #aeaeae;
+}
+
+.scoreSummary {
+  padding-bottom: 15px;
+  border-bottom: 2px solid #3a3a3a;
+}
+
+.levelTag {
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  width: fit-content;
+  margin-bottom: 10px;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.levelTag:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.levelExcellent {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.levelGood {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.levelWarning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.levelDanger {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.summaryText {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.reportSummary {
+  padding-top: 15px;
+}
+
+.summaryContent {
+  color: #888;
+}
+
+.summaryLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.sumIcon {
+  color: #10b981;
+}
+
+.summaryTextContent {
+  padding: 10px 0 20px;
+  font-size: 14px;
+}
+
+.exportBtnWrapper {
+  width: 80%;
+  height: 45px;
+  margin: 0 auto;
+  border-radius: 10px;
+  gap: 8px;
+  background:
+    linear-gradient(120deg, #2d2d2d 0%, #2d2d2d 50%, transparent 50%),
+    linear-gradient(-60deg, #3a3a3a 0%, #3a3a3a 50%, transparent 50%),
+    linear-gradient(60deg, #2f49d0 0%, #2f49d0 50%, transparent 50%),
+    linear-gradient(-120deg, #1e3a8a 0%, #1e3a8a 50%, transparent 50%);
+  background-blend-mode: hard-light;
+  background-size: 200% 200%;
+  transition:
+    transform 0.4s cubic-bezier(0.17, 0.67, 0.3, 1.33),
+    background-position 0.6s ease;
+  box-shadow:
+    inset 1px 1px 2px rgba(255, 255, 255, 0.1),
+    -1px -1px 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-family: "Nunito", sans-serif;
+}
+
+.exportBtnWrapper:hover {
+  transform: scale(1.02);
+  background-position: 100% 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.exportBtnWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: skewX(-20deg);
+  filter: blur(2px);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.exportBtnWrapper:hover::before {
+  left: 120%;
+}
+
+.exportBtn {
+  padding: 8px 15px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.exportText {
+  flex: 1;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+}
+
+.exportIcon {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.exportBtn::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024' width='14' height='14'%3E%3Cpath d='M761.056 532.128c0.512-0.993 1.343-1.823 1.792-2.849 8.8-18.304 5.92-40.703-9.664-55.424L399.936 139.744c-19.265-18.209-49.631-17.345-67.872 1.889-18.209 19.264-17.376 49.63 1.889 67.872l316.96 299.839L335.2 813.632c-19.072 18.399-19.648 48.767-1.247 67.872 9.407 9.791 21.984 14.689 34.56 14.689 12 0 24-4.48 33.312-13.44l350.048-337.376c0.673-0.673 0.927-1.6 1.6-2.303 0.513-0.48 1.056-0.833 1.567-1.344 2.72-2.85 4.16-6.339 6.016-9.602z' fill='%23ffffff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  width: 0;
+  margin: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1),
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.exportBtn:hover .exportIcon {
+  transform: scale(0);
+  opacity: 0;
+  width: 0;
+  margin: 0;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1),
+    opacity 0.15s ease,
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.exportBtn:hover::before {
+  opacity: 1;
+  transform: scale(1);
+  width: 30px;
+  margin: 0 0 0 0;
+  transition:
+    opacity 0.2s ease 0.15s,
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1) 0.15s,
+    width 0.2s ease 0.15s,
+    margin 0.2s ease 0.15s;
+}
+
+.exportBtn::before {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1),
+    width 0.2s ease,
+    margin 0.2s ease;
+}
+
+.exportBtn .exportIcon {
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1) 0.15s,
+    opacity 0.2s ease 0.15s,
+    width 0.25s ease 0.15s,
+    margin 0.25s ease 0.15s;
+}

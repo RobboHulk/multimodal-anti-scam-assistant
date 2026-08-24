@@ -1,0 +1,81 @@
+.micButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #f5f5f5;
+  border: 1px solid #dedede;
+  color: #3b3e41;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.norecord:hover {
+  background: #dedede;
+}
+
+.recording {
+  background-color: #0066ff;
+}
+
+.recording:hover {
+  background-color: #4d8eff;
+}
+
+.lines {
+  width: 20px;
+  height: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.line:nth-child(n) {
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  transform-origin: center;
+  animation: soundWave 0.8s ease-in-out infinite;
+  background-color: white;
+}
+
+.line:nth-child(1) {
+  animation-delay: 0s;
+  height: 40%;
+}
+
+.line:nth-child(2) {
+  animation-delay: 0.1s;
+  height: 60%;
+}
+
+.line:nth-child(3) {
+  animation-delay: 0.2s;
+  height: 100%;
+}
+
+.line:nth-child(4) {
+  animation-delay: 0.15s;
+  height: 70%;
+}
+
+.line:nth-child(5) {
+  animation-delay: 0.05s;
+  height: 30%;
+}
+
+@keyframes soundWave {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(2);
+  }
+}

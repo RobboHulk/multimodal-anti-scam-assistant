@@ -1,0 +1,155 @@
+/* HistoryItem.module.css */
+.historyItem {
+  min-height: 40px;
+  padding: 4px 8px;
+  padding-right: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #9aa6b5;
+  position: relative;
+}
+
+.historyItemActive {
+  background-color: #2d2f36;
+  color: #e2e8f0;
+}
+
+.historyItem.pinned {
+  background-color: #000;
+  color: #f1eade;
+}
+
+.historyItem.pinned:hover {
+  background-color: #000;
+  color: #f1eade;
+}
+
+.historyItem:hover {
+  background-color: #25262b;
+  color: #e2e8f0;
+}
+
+.itemTitle {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleText {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.renameInput {
+  width: 100%;
+  background: #1a1c21;
+  border: 1px solid #3964fe;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  outline: none;
+}
+
+.renameInput:focus {
+  border-color: #4d74ff;
+}
+
+.tipIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  color: #9aa6b5;
+}
+
+.tipIcon:hover {
+  color: #e2e8f0;
+  background-color: #3a3c44;
+}
+
+/* TipCard 样式 */
+.tipCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-radius: 10px;
+  background-color: #1e1f24;
+  border: 1px solid #2d2f36;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  color: #e2e8f0;
+  width: 130px;
+  overflow: hidden;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tip {
+  height: 40px;
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: #9aa6b5;
+}
+
+.tip:first-child {
+  margin-top: 4px;
+}
+
+.tip:last-child {
+  margin-bottom: 4px;
+}
+
+.tipDelete {
+  color: #ef4444;
+}
+
+.tipDelete:hover {
+  color: #f87171;
+}
+
+.tip:hover {
+  background-color: #2d2f36;
+  color: #e2e8f0;
+}
+
+.tip span:first-child {
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+.tip span:last-child {
+  font-size: 13px;
+  font-weight: 400;
+}

@@ -1,0 +1,35 @@
+/* FileUpload.module.css */
+.box {
+  margin: 0 2px;
+  position: relative;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  padding: 4px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.error {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}

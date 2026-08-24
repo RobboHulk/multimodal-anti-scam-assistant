@@ -1,0 +1,242 @@
+### 针对 Multimodal Anti-Scam Assistant 的 API 全景测试脚本
+### 推荐使用 IDEA / VSCode (安装 REST Client 插件) 直接点击运行此脚本
+
+@baseUrl = http://localhost:8888
+
+### ===========================
+### 1. 用户与角色管理模块
+### ===========================
+
+### 1.1 用户注册 (网页端)
+POST {{baseUrl}}/api/user/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123",
+  "phone": "13800138000"
+}
+
+### 1.2 登录 (获取 Token)
+# @name loginRequest
+POST {{baseUrl}}/api/user/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### 【手动获取】由于不同 IDE REST Client 版本对响应体截取机制兼容性不同，
+### 请将上方登录成功后响应体中的 token 复制并填入此变量（不要带引号）：
+@token = eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3NzM3MzUyNjEsImV4cCI6MTc3MzgyMTY2MX0.b4oTiYa1v-shsUZG-4wfU0uhOhT0JcYri-8nu0KCKXG3DaMQXAKoMlSpkYhCJKWC
+
+### 1.3 获取用户信息
+GET {{baseUrl}}/api/user/profile
+Authorization: Bearer {{token}}
+
+### 1.4 更新角色属性
+PUT {{baseUrl}}/api/user/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "ageGroup": 2,
+  "occupation": "学生",
+  "riskThreshold": 75
+}
+
+### 1.5 设置风险灵敏度与干预策略
+PUT {{baseUrl}}/api/user/config
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "riskThreshold": 60,
+  "notifyPolicy": "IMMEDIATE"
+}
+
+### 1.6 获取行为画像
+GET {{baseUrl}}/api/user/memory
+Authorization: Bearer {{token}}
+
+
+### ===========================
+### 2. 监护人联动模块
+### ===========================
+
+### 2.1 微信小程序登录获取Token
+POST {{baseUrl}}/api/guardian/wx-login
+Content-Type: application/json
+
+{
+  "code": "test_wx_code"
+}
+
+### 2.2 绑定监护人
+POST {{baseUrl}}/api/guardian/bind
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "张监护",
+  "phone": "13900139000",
+  "relation": "FATHER"
+}
+
+### 2.3 解绑监护人 (需替换1为实际guardianId)
+DELETE {{baseUrl}}/api/guardian/unbind/1
+Authorization: Bearer {{token}}
+
+### 2.4 获取信任联系人白名单
+GET {{baseUrl}}/api/guardian/whitelist
+Authorization: Bearer {{token}}
+
+### 2.5 添加信任联系人白名单
+POST {{baseUrl}}/api/guardian/whitelist
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "contactInfo": "13900001111",
+  "contactType": "PHONE",
+  "name": "李叔叔"
+}
+
+### 2.6 设置通知偏好
+PUT {{baseUrl}}/api/guardian/notify-policy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "notifyPolicy": "DAILY_SUMMARY"
+}
+
+### 2.7 监护人获取安全周报
+GET {{baseUrl}}/api/guardian/summary
+Authorization: Bearer {{token}}
+
+### 2.8 监护人远程下发干预指令 (需替换1为实际wardId)
+POST {{baseUrl}}/api/guardian/intervention/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "instruction": "立即停止转账，我马上过来！",
+  "level": "HIGH"
+}
+
+
+### ===========================
+### 3. 多轮对话模块
+### ===========================
+
+### 3.1 获取历史对话记录
+GET {{baseUrl}}/api/chat/history
+Authorization: Bearer {{token}}
+
+### 3.2 发送消息并获取回复
+POST {{baseUrl}}/api/chat/send
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "text": "我中奖了，需要先交税才能领奖，是真的吗？",
+  "session_id": "sess-chat-001",
+  "userProfile": {
+    "id": 1001,
+    "username": "testuser",
+    "ageGroup": 2,
+    "gender": 1,
+    "occupation": "student",
+    "riskPreference": 1,
+    "riskThreshold": 0.7,
+    "interventionStrategy": 1
+  }
+}
+
+
+### ===========================
+### 4. 多模态检测能力
+### ===========================
+
+### 4.1 单次多模态识别统一走聊天入口
+POST {{baseUrl}}/api/chat/send
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "session_id": "sess-detect-001",
+  "text": "公检法要求你立即把钱转入安全账户",
+  "image_path": "https://example.com/fake_police.jpg",
+  "userProfile": {
+    "id": 1001,
+    "username": "testuser",
+    "ageGroup": 2,
+    "gender": 1,
+    "occupation": "student",
+    "riskPreference": 1,
+    "riskThreshold": 0.7,
+    "interventionStrategy": 1
+  }
+}
+
+
+### ===========================
+### 5. 预警与干预模块
+### ===========================
+
+### 5.1 获取历史预警记录
+GET {{baseUrl}}/api/alert/history
+Authorization: Bearer {{token}}
+
+### 5.2 获取单次预警的判定依据 (需替换1为实际预警ID)
+GET {{baseUrl}}/api/alert/detail/1
+Authorization: Bearer {{token}}
+
+### 5.3 WebSocket 实时推送 (这里仅做文档说明，无法通过HTTP触发)
+### URL: ws://localhost:8080/ws/alert
+
+
+### ===========================
+### 6. 安全监测报告模块
+### ===========================
+
+### 6.1 生成指定时间段的安全监测报告
+POST {{baseUrl}}/api/report/generate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "startTime": "2026-03-01T00:00:00",
+  "endTime": "2026-03-31T23:59:59"
+}
+
+### 6.2 获取历史报告列表
+GET {{baseUrl}}/api/report/list
+Authorization: Bearer {{token}}
+
+
+### ===========================
+### 7. 知识库自适应进化模块
+### ===========================
+
+### 7.1 上传新诈骗案例
+POST {{baseUrl}}/api/knowledge/upload
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="new_scam_case.txt"
+Content-Type: text/plain
+
+发现一种新型的AI语音合成借钱骗局...
+--WebAppBoundary
+Content-Disposition: form-data; name="type"
+
+TEXT
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+
+新型AI语音诈骗案例
+--WebAppBoundary--

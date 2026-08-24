@@ -1,0 +1,13 @@
+.columnContainer {
+  width: 300px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.columnWrapper {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}

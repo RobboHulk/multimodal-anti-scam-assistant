@@ -1,0 +1,158 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 82% -12%, rgba(99,102,241,.12), transparent 31%),
+    radial-gradient(circle at 8% 80%, rgba(20,184,166,.05), transparent 27%),
+    #090b10;
+  color: #e7ebf2;
+}
+
+.main { width: min(1460px, calc(100% - 48px)); margin: 0 auto; padding: 29px 0 40px; }
+.pageHeader { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 70px; }
+.pageHeader h1 { margin: 0; color: #f7f8fb; font-size: 30px; letter-spacing: -.03em; }
+.pageHeader > div:first-child > span { display: block; margin-top: 5px; color: #697589; font-size: 13px; }
+.headerButtons { display: flex; gap: 9px; }
+.headerButtons button { height: 40px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: rgba(255,255,255,.025); color: #a9b3c2; font-size: 13px; cursor: pointer; }
+.headerButtons .primaryButton { border-color: rgba(129,140,248,.35); background: rgba(99,102,241,.14); color: #c7d2fe; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin: 22px 0 18px; }
+.stats > div { min-height: 88px; display: grid; grid-template-columns: 50px 1fr; align-items: center; gap: 13px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: rgba(18,22,30,.82); }
+.stats i { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 13px; font-style: normal; font-size: 20px; font-weight: 740; }
+.statBlue { color: #c7d2fe; background: rgba(99,102,241,.13); }
+.statAmber { color: #fde68a; background: rgba(245,158,11,.11); }
+.statViolet { color: #ddd6fe; background: rgba(139,92,246,.11); }
+.statGreen { color: #99f6e4; background: rgba(20,184,166,.11); }
+.stats span { display: flex; flex-direction: column; gap: 3px; }
+.stats strong { color: #dbe1ea; font-size: 14px; }
+.stats small { color: #687489; font-size: 12px; }
+
+.reportWorkspace { min-height: 720px; display: grid; grid-template-columns: 330px minmax(0, 1fr); border: 1px solid var(--border); border-radius: 17px; overflow: hidden; background: rgba(13,16,23,.88); box-shadow: 0 24px 70px rgba(0,0,0,.18); }
+.reportQueue { min-width: 0; padding: 19px 14px; border-right: 1px solid var(--border); background: rgba(17,21,29,.74); }
+.queueHeader { height: 38px; display: flex; align-items: center; justify-content: space-between; padding: 0 6px; }
+.queueHeader h2 { margin: 0; color: #e3e7ed; font-size: 17px; }
+.queueHeader button { border: 0; background: transparent; color: #788498; font-size: 12px; cursor: pointer; }
+.searchBox { height: 42px; display: flex; align-items: center; gap: 8px; margin: 13px 4px 15px; padding: 0 11px; border: 1px solid rgba(255,255,255,.075); border-radius: 10px; background: rgba(0,0,0,.12); }
+.searchBox span { color: #697589; font-size: 22px; }
+.searchBox input { width: 100%; border: 0; outline: 0; background: transparent; color: #dbe1e9; font-size: 13px; }
+.searchBox input::placeholder { color: #556173; }
+.queueList { display: flex; flex-direction: column; gap: 8px; }
+.reportItem { width: 100%; min-height: 108px; padding: 14px; border: 1px solid transparent; border-radius: 12px; background: transparent; text-align: left; cursor: pointer; }
+.reportItem:hover { background: rgba(255,255,255,.035); }
+.reportActive { border-color: rgba(129,140,248,.24); background: rgba(99,102,241,.09); }
+.reportItemTop, .reportItemBottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.reportItemTop strong { overflow: hidden; color: #cfd6e0; font-size: 14px; text-overflow: ellipsis; white-space: nowrap; }
+.reportItemTop i { flex: 0 0 auto; padding: 4px 6px; border-radius: 6px; font-style: normal; font-size: 10px; }
+.riskHigh { color: #fecdd3; background: rgba(244,63,94,.1); }
+.riskMid { color: #fde68a; background: rgba(245,158,11,.1); }
+.reportItem > span { display: block; margin: 8px 0 13px; color: #697589; font-size: 11px; }
+.reportItemBottom b { color: #8792a5; font-size: 11px; font-weight: 600; }
+.reportItemBottom em { color: #5eead4; font-size: 11px; font-style: normal; }
+.reportItemBottom .waiting { color: #fbbf24; }
+
+.reportView { min-width: 0; }
+.reportHeader { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 25px; border-bottom: 1px solid var(--border); }
+.reportIdentity { display: flex; align-items: center; gap: 9px; }
+.reportIdentity span { color: #778397; font-size: 12px; }
+.reportIdentity i { padding: 4px 7px; border-radius: 6px; background: rgba(20,184,166,.09); color: #5eead4; font-style: normal; font-size: 10px; }
+.reportHeader h2 { margin: 8px 0 0; color: #f0f2f6; font-size: 21px; }
+.reportRisk { display: flex; align-items: flex-end; flex-direction: column; gap: 3px; }
+.reportRisk span { color: #697589; font-size: 11px; }
+.reportRisk strong { color: #fda4af; font-size: 20px; }
+
+.reportTabs { height: 56px; display: flex; align-items: flex-end; gap: 26px; padding: 0 25px; border-bottom: 1px solid var(--border); }
+.reportTabs button { position: relative; height: 48px; padding: 0 2px; border: 0; background: transparent; color: #748095; font-size: 14px; font-weight: 620; cursor: pointer; }
+.reportTabs .reportTabActive { color: #e8ebf2; }
+.reportTabActive::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: #818cf8; }
+
+.reportContent { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+.summaryRow, .detailRow { display: grid; grid-template-columns: 1.28fr .72fr; gap: 16px; }
+.riskSummary, .integrityCard, .actionList, .auditTrend { min-height: 270px; padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,.018); }
+.cardTitle { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.cardTitle h3 { margin: 0; color: #dfe4eb; font-size: 16px; }
+.cardTitle > span { color: #6f7b8e; font-size: 12px; }
+.riskBands { margin-top: 22px; }
+.riskBands > div { display: grid; grid-template-columns: 80px 1fr 33px; align-items: center; gap: 11px; margin-top: 13px; }
+.riskBands span { color: #9ca7b7; font-size: 13px; }
+.riskBands b { height: 7px; overflow: hidden; border-radius: 99px; background: #252c39; }
+.riskBands i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#6874e8,#fb7185); }
+.riskBands strong { color: #cbd3de; font-size: 12px; text-align: right; }
+.riskSummary p { margin: 22px 0 0; padding: 14px; border-left: 3px solid #818cf8; border-radius: 0 9px 9px 0; background: rgba(99,102,241,.06); color: #aab4c3; font-size: 13px; line-height: 1.75; }
+.integrityValid { color: #5eead4 !important; }
+.integrityFailed { color: #fb7185 !important; }
+.fingerprint { display: flex; align-items: center; gap: 13px; margin: 21px 0 14px; padding: 13px; border-radius: 11px; background: rgba(255,255,255,.025); }
+.fingerprint > i { position: relative; width: 42px; height: 42px; border: 2px solid #818cf8; border-radius: 50%; }
+.fingerprint > i::before, .fingerprint > i::after { content: ""; position: absolute; inset: 8px; border: 1px solid #5eead4; border-radius: 50%; }
+.fingerprint > i::after { inset: 15px; background: #a78bfa; border: 0; }
+.fingerprint > span { display: flex; flex-direction: column; gap: 4px; }
+.fingerprint b { color: #bdc6d3; font-size: 12px; }
+.fingerprint code { color: #8e9afd; font-size: 11px; }
+.integrityCard dl { margin: 0; }
+.integrityCard dl div { display: flex; justify-content: space-between; padding: 7px 0; color: #738095; font-size: 11px; }
+.integrityCard dd { margin: 0; color: #aeb8c6; }
+.integrityCard button { width: 100%; height: 35px; margin-top: 11px; border: 1px solid rgba(129,140,248,.22); border-radius: 8px; background: rgba(99,102,241,.07); color: #aab4ff; font-size: 12px; cursor: pointer; }
+
+.actionList > div:not(.cardTitle) { min-height: 58px; display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 10px; margin-top: 11px; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.022); }
+.actionList > div > i { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: rgba(99,102,241,.11); color: #aab4ff; font-style: normal; font-size: 11px; }
+.actionList > div > span { display: flex; flex-direction: column; gap: 3px; }
+.actionList strong { color: #cbd3de; font-size: 13px; }
+.actionList small { color: #6d788c; font-size: 11px; }
+.actionList > div > b { color: #7d899b; font-size: 10px; font-weight: 600; }
+.auditTrend svg { width: 100%; height: 170px; margin-top: 9px; overflow: visible; }
+.auditTrend svg text { fill: #697589; font-size: 10px; }
+.auditNumbers { display: flex; justify-content: center; gap: 18px; }
+.auditNumbers span { display: flex; align-items: baseline; gap: 4px; color: #718096; font-size: 11px; }
+.auditNumbers b { color: #c7d2fe; font-size: 17px; }
+
+.claimAudit { padding: 20px 24px; }
+.claimHeader, .claimRow { display: grid; grid-template-columns: 100px minmax(250px, 1.4fr) minmax(170px, 1fr) 90px; align-items: center; gap: 16px; }
+.claimHeader { height: 42px; padding: 0 15px; color: #667286; font-size: 12px; }
+.claimRow { min-height: 68px; margin-top: 6px; padding: 10px 15px; border: 1px solid rgba(255,255,255,.045); border-radius: 11px; background: rgba(255,255,255,.018); }
+.claimRow > b { color: #8793a6; font-size: 12px; }
+.claimRow > strong { color: #cdd4de; font-size: 13px; }
+.claimRow > span { color: #748095; font-size: 12px; }
+.claimRow > i { justify-self: start; padding: 6px 8px; border-radius: 7px; font-style: normal; font-size: 11px; }
+.claimSupported { color: #99f6e4; background: rgba(20,184,166,.09); }
+.claimRetracted { color: #cbd5e1; background: rgba(148,163,184,.09); }
+.claimExplanation { display: flex; gap: 11px; margin-top: 20px; padding: 14px; border: 1px solid rgba(129,140,248,.13); border-radius: 10px; background: rgba(99,102,241,.05); }
+.claimExplanation i { flex: 0 0 auto; width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; background: rgba(129,140,248,.18); color: #c7d2fe; font-style: normal; font-size: 12px; }
+.claimExplanation p { margin: 1px 0 0; color: #8894a6; font-size: 12px; line-height: 1.65; }
+
+.auditLog { padding: 20px 28px; }
+.logToolbar { display: flex; justify-content: space-between; margin-bottom: 15px; }
+.logToolbar span { color: #718096; font-size: 12px; }
+.logToolbar button, .logItem button { border: 0; background: transparent; color: #8e9afd; font-size: 11px; cursor: pointer; }
+.logItem { position: relative; min-height: 74px; display: grid; grid-template-columns: 80px 31px 1fr auto; align-items: center; gap: 12px; }
+.logItem::before { content: ""; position: absolute; top: 50px; bottom: -23px; left: 94px; width: 1px; background: #303848; }
+.logItem:last-child::before { display: none; }
+.logItem time { color: #6b7689; font-size: 12px; }
+.logItem > i { width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid #424c5d; border-radius: 50%; background: #151923; color: #5eead4; font-style: normal; font-size: 10px; z-index: 1; }
+.logItem > span { display: flex; flex-direction: column; gap: 4px; }
+.logItem strong { color: #cbd3dd; font-size: 13px; }
+.logItem small { color: #6d788b; font-size: 11px; }
+.boundaryNote { margin: 14px 0 0; color: #596579; font-size: 12px; text-align: center; }
+
+/* 关键中文信息保持在演示屏幕上可读，微型状态字仅作为辅助层级。 */
+.stats small, .queueHeader button, .cardTitle > span, .riskBands strong,
+.fingerprint b, .integrityCard button, .claimHeader, .claimRow > b,
+.claimRow > span, .claimExplanation p, .logToolbar span, .logItem time,
+.boundaryNote { font-size: 13px; }
+.reportItem > span, .reportItemBottom b, .reportItemBottom em,
+.integrityCard dl div, .actionList small, .auditNumbers span,
+.claimRow > i, .logToolbar button, .logItem button, .logItem small { font-size: 12px; }
+
+@media (max-width: 1100px) {
+  .reportWorkspace { grid-template-columns: 280px minmax(0, 1fr); }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .summaryRow, .detailRow { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .main { width: calc(100% - 28px); padding-top: 18px; }
+  .pageHeader { align-items: flex-start; flex-direction: column; }
+  .reportWorkspace { display: block; }
+  .reportQueue { border-right: 0; border-bottom: 1px solid var(--border); }
+  .queueList { display: grid; grid-template-columns: repeat(4, 260px); overflow-x: auto; }
+  .stats { grid-template-columns: 1fr; }
+  .reportHeader { align-items: flex-start; }
+  .claimAudit { overflow-x: auto; }
+  .claimHeader, .claimRow { min-width: 760px; }
+}

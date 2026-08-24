@@ -1,0 +1,134 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 260px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.customTooltip {
+  background: #2d2d2d;
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 140px;
+}
+
+.tooltipTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cecece;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltipContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.tooltipLabel {
+  font-size: 11px;
+  color: #888;
+}
+
+.tooltipValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.tooltipPercentage {
+  font-size: 10px;
+  color: #888;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.legendWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #2d2d2d;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.legendItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.legendName {
+  color: #cecece;
+  font-weight: 500;
+}
+
+.legendValue {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.legendPercent {
+  color: #888;
+  font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .legendWrapper {
+    gap: 8px;
+  }
+
+  .legendItem {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legendWrapper {
+    gap: 6px;
+  }
+
+  .legendItem {
+    padding: 3px 8px;
+  }
+
+  .legendName,
+  .legendValue,
+  .legendPercent {
+    font-size: 10px;
+  }
+}

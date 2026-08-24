@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multimodal-antifraud-agent"
+version = "0.1.0"
+description = "多模态反诈智能体"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "intent_recognizer*",
+    "knowledge_graph*",
+    "preprocessing*",
+    "shared*",
+    "speech_detector*",
+    "fusion*",
+]

@@ -1,0 +1,230 @@
+.messageItem {
+  display: flex;
+  gap: 12px;
+  animation: fadeInUp 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.userMessage {
+  flex-direction: row-reverse;
+}
+
+.userMessage .messageContent {
+  align-items: flex-end;
+}
+
+.userMessage .messageText {
+  background: #2c2c2e;
+  color: #fff;
+}
+
+.aiMessage .messageText {
+  background: #25262b;
+  color: #cbd5e1;
+}
+
+.messageAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.userAvatar {
+  width: 100%;
+  height: 100%;
+}
+
+.userAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.aiAvatar {
+  width: 100%;
+  height: 100%;
+  background: #1a1c21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid #2d2f36;
+}
+
+.messageContent {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filesGrid {
+  display: grid;
+  gap: 8px;
+}
+
+/* 默认：1个文件时，单列固定宽度 */
+.filesGrid {
+  grid-template-columns: 240px;
+}
+
+/* 2个及以上文件时，改为两列布局 */
+.filesGrid:has(> :nth-child(2)) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.userMessage .filesGrid {
+  justify-items: end;
+}
+
+.aiMessage .filesGrid {
+  justify-items: start;
+}
+
+.messageText {
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-all;
+  overflow-wrap: break-all;
+  padding: 10px 14px;
+  border-radius: 16px;
+  white-space: pre-wrap;
+}
+
+.messageText p {
+  margin: 0 0 4px 0;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.messageText p:last-child {
+  margin-bottom: 0;
+}
+
+.messageFooter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2px;
+  padding: 0 4px;
+}
+
+.messageTime {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.actionWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.actionBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #81858c;
+  font-size: 10px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover {
+  background: #2d2f36;
+  color: #e2e8f0;
+}
+
+.actionBtn[data-tooltip="copy"]::after {
+  content: "复制";
+}
+
+.actionBtn[data-tooltip="like"]::after {
+  content: "有帮助";
+}
+
+.actionBtn[data-tooltip="dislike"]::after {
+  content: "没帮助";
+}
+
+.actionBtn::after {
+  padding: 5px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, calc(100% + 7px)) scale(0.8);
+  background-color: #2c2c2e;
+  color: #e0e0e0;
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.actionBtn:hover::after {
+  opacity: 1;
+  transform: translate(-50%, calc(100% + 4px)) scale(1);
+}
+
+.userMessage .actionWrapper {
+  justify-content: flex-end;
+}
+
+/* 打字光标动画 */
+.typingCursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #3964fe;
+  margin-left: 2px;
+  animation: blink 0.8s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .messageContent {
+    max-width: 85%;
+  }
+
+  .messageText {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .filesGrid {
+    grid-template-columns: 1fr !important;
+  }
+}

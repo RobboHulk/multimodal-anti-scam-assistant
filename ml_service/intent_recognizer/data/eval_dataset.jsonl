@@ -1,0 +1,14 @@
+{"query":"你好，今天上海天气怎么样","is_fraud_relevant":false,"coarse_category":"OTHER_UNKNOWN","risk_stage":"S0","recommended_action":"educate"}
+{"query":"有人加我微信说是客服，问我要手机号和验证码","is_fraud_relevant":true,"coarse_category":"IMPERSONATE_ECOM_CUSTOMER_SERVICE","risk_stage":"S2","recommended_action":"warn"}
+{"query":"对方自称公安，让我把钱转到安全账户配合调查","is_fraud_relevant":true,"coarse_category":"IMPERSONATE_POLICE_GOV","risk_stage":"S4","recommended_action":"block"}
+{"query":"我收到一个投资群链接，说日收益10%，靠谱吗","is_fraud_relevant":true,"coarse_category":"INVESTMENT_SCAM","risk_stage":"S1","recommended_action":"verify"}
+{"query":"他说先交500元保证金就能做刷单兼职","is_fraud_relevant":true,"coarse_category":"JOB_SCAM","risk_stage":"S4","recommended_action":"block"}
+{"query":"我已经给陌生账户转账了，现在怎么办","is_fraud_relevant":true,"coarse_category":"OTHER_UNKNOWN","risk_stage":"S5","recommended_action":"report"}
+{"query":"对方让我下载远程控制APP并共享屏幕","is_fraud_relevant":true,"coarse_category":"IMPERSONATE_POLICE_GOV","risk_stage":"S3","recommended_action":"block"}
+{"query":"这张截图里写着'点击链接解除账户异常'","image_ocr_text":"点击链接解除账户异常，输入银行卡和验证码","image_caption":"聊天截图，包含陌生网址","is_fraud_relevant":true,"coarse_category":"PHISHING_LINK_QRCODE","risk_stage":"S3","recommended_action":"block"}
+{"query":"这段语音很像AI合成，是否有诈骗风险","audio_text":"您好我是平台客服，请您立即转账验证","audio_deepfake_score":0.93,"is_fraud_relevant":true,"coarse_category":"IMPERSONATE_ECOM_CUSTOMER_SERVICE","risk_stage":"S3","recommended_action":"block"}
+{"query":"他说我征信有问题，要我先贷款再转给他刷流水","is_fraud_relevant":true,"coarse_category":"LOAN_SCAM","risk_stage":"S4","recommended_action":"block"}
+{"query":"有人让我扫这个二维码领奖","is_fraud_relevant":true,"coarse_category":"PHISHING_LINK_QRCODE","risk_stage":"S2","recommended_action":"warn"}
+{"query":"我朋友发来一个陌生网址让我帮忙点开认证","is_fraud_relevant":true,"coarse_category":"PHISHING_LINK_QRCODE","risk_stage":"S1","recommended_action":"verify"}
+{"query":"我妈接到电话说孙子出事要马上汇款","is_fraud_relevant":true,"coarse_category":"EMERGENCY_IMPERSONATION","risk_stage":"S4","recommended_action":"block"}
+{"query":"能帮我总结一下防诈骗要点吗","is_fraud_relevant":true,"coarse_category":"OTHER_UNKNOWN","risk_stage":"S1","recommended_action":"verify"}

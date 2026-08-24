@@ -1,0 +1,93 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Local env
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+
+# Logs / temp
+*.log
+logs/
+tmp/
+temp/
+
+# Large datasets and generated screenshots
+datasets/archive/
+datasets/LoginPagePhishingVsBenign-2026/
+datasets/RegulatoryDatasets/
+datasets/fgrcScd/
+datasets/ChiPhish_Phishing/
+datasets/OfficialDataset/
+datasets/generated_screenshots/
+datasets/generated_synthetic_screenshots/
+datasets/**/.cache/
+
+# Local dataset imports (do not commit)
+datasets/ccl2023FgrcScd/
+datasets/chiFraud/
+datasets/chineseSpamDataset/
+datasets/fbsSmsDataset/
+datasets/inTheWild/
+datasets/maliciousWebPages/
+datasets/mcfend/
+datasets/officialDatasets/
+datasets/syntheticScamHtml/
+datasets/teleAntiFraud/
+datasets/telecomFraudTexts5/
+# 补充排除的 datasets 子目录
+datasets/TeleAntiFraud-28k/
+datasets/external/
+datasets/images/
+
+# Speech detector datasets / generated assets
+speech_detector/processed_dataset/
+speech_detector/processed_dataset_pt/
+
+# Knowledge graph large artifacts are tracked via Git LFS
+# text_vectors.jsonl 超出 GitHub LFS 单文件 2GB 限制，直接排除
+knowledge_graph/processed_data/text_vectors.jsonl
+knowledge_graph/vector_store/
+
+# Evaluation outputs (locally generated, do not commit)
+evaluation/smoke_test_pipeline_output.json
+evaluation/evaluation_report.json
+evaluation/enhancement_comparison_report.json
+
+# Temporary debug / print scripts
+scripts/_debug_*.py
+scripts/_print_*.py
+scripts/_test_*.py
+
+# Backup files
+*.bak
+
+# Delivery packages and large reference materials
+delivery/*.zip
+background_Information/*.pptx
+
+# Databases / local stores
+neo4j_data/
+milvus_data/
+*.db
+
+# Model weights / checkpoints
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+checkpoints/

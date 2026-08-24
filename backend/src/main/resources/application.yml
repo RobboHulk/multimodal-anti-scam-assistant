@@ -1,0 +1,65 @@
+server:
+  port: 8889
+
+spring:
+  application:
+    name: multimodal-anti-scam-assistant
+
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/anti_scam_vt?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    username: root
+    password: ${MYSQL_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Redis 配置
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:16379}
+      password:           
+      database: 0
+      timeout: 3000ms
+
+  # 文件上传大小限制（多模态附件）
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  # 自定义上传文件的落盘目标区
+file:
+  upload-dir: ./uploads/
+
+# MyBatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.juntong.multimodalantiscamassistant.module
+  configuration:
+    map-underscore-to-camel-case: true   # 下划线转驼峰
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 开发期打印 SQL
+  global-config:
+    db-config:
+      logic-delete-field: deleted        # 逻辑删除字段
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# JWT 配置
+jwt:
+  secret: your-256-bit-secret-key-replace-in-production-env
+  expiration: 86400000    # 24小时，单位毫秒
+
+# 微信小程序配置（监护人端登录）
+wx:
+  appid: your_wx_appid
+  secret: your_wx_secret
+
+# ML服务配置
+ml:
+  service:
+    url: ${ML_SERVICE_URL:http://anti-scam-ml:8000}
+
+# 日志配置
+logging:
+  level:
+    com.juntong.multimodalantiscamassistant: debug

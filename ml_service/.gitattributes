@@ -1,0 +1,21 @@
+knowledge_graph/annotation_cache/*.json filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/annotation_cache/*.jsonl filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/cypher_scripts/*.cypher filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/processed_data/*.json filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/processed_data/*.jsonl filter=lfs diff=lfs merge=lfs -text
+# text_vectors.jsonl (2.12GB) 超出 LFS 单文件 2GB 限制，已在 .gitignore 中排除，此处不追踪
+knowledge_graph/vector_data/*.json filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/vector_data/*.jsonl filter=lfs diff=lfs merge=lfs -text
+# 向量索引二进制文件（FAISS unified.index 等）
+knowledge_graph/vector_data/*.index filter=lfs diff=lfs merge=lfs -text
+knowledge_graph/vector_data/*.bin filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/*.pt filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/*.pth filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/*.bin filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/*.safetensors filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/**/*.pt filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/**/*.pth filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/**/*.bin filter=lfs diff=lfs merge=lfs -text
+speech_detector/models/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
+speech_detector/processed_dataset/** filter=lfs diff=lfs merge=lfs -text
+speech_detector/processed_dataset_pt/** filter=lfs diff=lfs merge=lfs -text

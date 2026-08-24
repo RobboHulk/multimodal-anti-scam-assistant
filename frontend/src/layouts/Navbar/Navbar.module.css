@@ -1,0 +1,86 @@
+.navbar {
+  height: 4rem;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0 24px;
+  background-color: black;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.navContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  line-height: 100%;
+}
+.navLogo {
+  height: 100%;
+  margin: 0 30px;
+  display: flex;
+  align-items: center;
+}
+.navLinks {
+  height: 100%;
+  display: flex;
+  flex: 1 auto;
+}
+.navItem {
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+}
+.navItem a {
+  position: relative;
+}
+.navItem a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background: white;
+  transform-origin: right center;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.navItem a:hover::before {
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+.navUser {
+  height: 100%;
+  display: flex;
+  margin-right: 20px;
+}
+.navUserItem {
+  display: flex;
+  align-items: center;
+}
+.navUserImgBox {
+  margin: 0 40px;
+  position: relative;
+}
+.navUserMsg {
+  margin-right: 0;
+}
+@media screen and (max-width: 1400px) {
+  .navbar::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    height: 5px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+    z-index: 999;
+    pointer-events: none;
+    border-radius: 0 0 30px 30px;
+  }
+}

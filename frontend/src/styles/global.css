@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* ═══ 主题变量 ════════════════════════════════════════════════ */
+body, body.dark {
+  --bg-base:        #0a0a0c;
+  --bg-surface:     #111114;
+  --bg-card:        rgba(255,255,255,0.03);
+  --bg-hover:       rgba(255,255,255,0.06);
+  --border:         rgba(255,255,255,0.08);
+  --border-strong:  rgba(255,255,255,0.13);
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #475569;
+  --accent:         #6366f1;
+  --accent-hover:   #818cf8;
+  --nav-bg:         rgba(10,10,12,0.85);
+  --nav-border:     rgba(255,255,255,0.08);
+  --card-shadow:    0 4px 24px rgba(0,0,0,0.4);
+  /* Avatar 下拉卡片变量 */
+  --avatar-card-bg:      #242628;
+  --avatar-card-hover:   #2f3134;
+  --avatar-card-line:    rgba(255,255,255,0.1);
+  --avatar-username:     #fe568f;
+  --avatar-text:         rgb(208, 208, 208);
+  --avatar-logout-color: #f1eade;
+  color-scheme: dark;
+}
+
+body.light {
+  --bg-base:        #f8fafc;
+  --bg-surface:     #ffffff;
+  --bg-card:        rgba(0,0,0,0.03);
+  --bg-hover:       rgba(0,0,0,0.05);
+  --border:         rgba(0,0,0,0.1);
+  --border-strong:  rgba(0,0,0,0.16);
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --accent:         #6366f1;
+  --accent-hover:   #4f46e5;
+  --nav-bg:         rgba(248,250,252,0.92);
+  --nav-border:     rgba(0,0,0,0.08);
+  --card-shadow:    0 4px 24px rgba(0,0,0,0.08);
+  /* Avatar 下拉卡片变量 - 亮色 */
+  --avatar-card-bg:      #ffffff;
+  --avatar-card-hover:   #f1f5f9;
+  --avatar-card-line:    rgba(0,0,0,0.08);
+  --avatar-username:     #6366f1;
+  --avatar-text:         #334155;
+  --avatar-logout-color: #ef4444;
+  color-scheme: light;
+}
+
+/* ═══ 全局基础样式 ════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+body .app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button, input, textarea, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+::selection { background: rgba(99,102,241,.38); color: #fff; }
+
+.icon-logo::before {
+  content: "\e9b4";
+}
+.icon-sideBar::before {
+  cursor: pointer;
+  content: "\e911";
+}
+.icon-pin::before {
+  content: "\e946";
+}

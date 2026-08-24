@@ -1,0 +1,228 @@
+/* WindowSelector.module.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  backdrop-filter: blur(4px);
+}
+
+.dialog {
+  background: #1e1f24;
+  border-radius: 20px;
+  width: 480px;
+  max-width: 90%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid #2d2f36;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #1a1c21, #1e1f24);
+  border-bottom: 1px solid #2d2f36;
+}
+
+.header .icon {
+  font-size: 28px;
+  color: #e2e8f0;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.content {
+  padding: 24px;
+  padding-bottom: 0;
+}
+
+.content p {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.windowList {
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 16px 0;
+  background: #1a1c21;
+}
+
+.windowList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.windowList::-webkit-scrollbar-track {
+  background: #2d2f36;
+  border-radius: 4px;
+}
+
+.windowList::-webkit-scrollbar-thumb {
+  background: #4a4d56;
+  border-radius: 4px;
+}
+
+.windowItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #2d2f36;
+}
+
+.windowItem:last-child {
+  border-bottom: none;
+}
+
+.windowItem:hover {
+  background: #25262b;
+}
+
+.windowItem.selected {
+  background: #1a3a2a;
+  border-left: 3px solid #22c55e;
+}
+
+.windowIcon {
+  font-size: 24px;
+  width: 36px;
+  text-align: center;
+}
+
+.windowInfo {
+  flex: 1;
+}
+
+.windowName {
+  font-size: 15px;
+  font-weight: 500;
+  color: #e2e8f0;
+  margin-bottom: 4px;
+}
+
+.windowProcess {
+  font-size: 11px;
+  color: #676767;
+  font-family: "Nunito", sans-serif;
+}
+
+.windowStatus {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #2d2f36;
+  color: #94a3b8;
+}
+
+.windowStatus.running {
+  background: #1a3a2a;
+  color: #22c55e;
+}
+
+.windowStatus.idle {
+  background: #3a2a1a;
+  color: #eab308;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px;
+  color: #64748b;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2d2f36;
+  border-top-color: #3964fe;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tip {
+  font-size: 12px !important;
+  color: #5a5f6e !important;
+  padding: 15px 0;
+  border-top: 1px solid #2d2f36;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #2d2f36;
+  background: #1a1c21;
+}
+
+.cancelBtn,
+.confirmBtn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.cancelBtn {
+  background: #2d2f36;
+  color: #94a3b8;
+}
+
+.cancelBtn:hover {
+  background: #3a3c44;
+  color: #e2e8f0;
+}
+
+.confirmBtn {
+  background: #3964fe;
+  color: white;
+}
+
+.confirmBtn:hover {
+  background: #254edb;
+}
+
+.confirmBtn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
