@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./Nav.module.css";
 import Avatar from "../../components/Avatar/Avatar";
 import { isAuthenticated } from "../../utils/auth";
+import logo from "../../assets/images/智能体.svg";
 
 const menuItems = [
   { path: "/", label: "首页", protected: false },
@@ -13,16 +14,15 @@ const menuItems = [
 ];
 
 const BrandMark = () => (
-  <svg viewBox="0 0 42 42" aria-hidden="true">
-    <defs>
-      <linearGradient id="navBrandGradient" x1="6" y1="4" x2="36" y2="38">
-        <stop stopColor="#8b9cff" />
-        <stop offset="1" stopColor="#5eead4" />
-      </linearGradient>
-    </defs>
-    <path d="M21 3 36 9v11c0 9-6.2 15.6-15 19-8.8-3.4-15-10-15-19V9l15-6Z" fill="url(#navBrandGradient)" />
-    <path d="M11.5 21c3.2-4.7 6.6-5.1 9.5-1.1 3-4 6.3-3.6 9.5 1.1-3.2 4.7-6.5 5.1-9.5 1.1-2.9 4-6.3 3.6-9.5-1.1Z" fill="#0b1020" fillOpacity=".88" />
-  </svg>
+  <img 
+    src={logo}
+    alt="智鉴安澜"
+    style={{
+      width: "45px",
+      height: "50px",
+      objectFit: "contain"
+    }}
+  />
 );
 
 const Nav = ({ className = "" }) => {

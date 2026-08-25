@@ -19,7 +19,7 @@
 }
 
 .logo { display: inline-flex; align-items: center; gap: 11px; width: max-content; color: var(--text-primary); text-decoration: none; font-size: 18px; font-weight: 760; letter-spacing: .06em; }
-.logoIcon { width: 35px; height: 35px; display: inline-flex; }
+.logoIcon { width: 42px; height: 48px; display: inline-flex; }
 .logoIcon svg { width: 100%; height: 100%; }
 .logoText { white-space: nowrap; }
 
