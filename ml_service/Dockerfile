@@ -1,9 +1,10 @@
-FROM python:3.10-slim
+﻿FROM python:3.10-slim
 
 WORKDIR /app
 
 COPY requirements_simple.txt ./requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app_simple.py .
 
