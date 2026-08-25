@@ -1,0 +1,108 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: anti-scam-mysql
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: anti_scam_vt
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    networks:
+      - anti-scam-network
+
+
+  redis:
+    image: redis:7-alpine
+    container_name: anti-scam-redis
+    restart: always
+
+    ports:
+      - "16379:6379"
+
+    networks:
+      - anti-scam-network
+
+
+  anti-scam-ml:
+    build:
+      context: ./ml_service
+
+    container_name: anti-scam-ml
+    restart: always
+
+    ports:
+      - "8000:8000"
+
+    networks:
+      - anti-scam-network
+
+
+  backend:
+    build:
+      context: ./backend
+
+    container_name: anti-scam-backend
+    restart: always
+
+    depends_on:
+      - mysql
+      - redis
+      - anti-scam-ml
+
+    environment:
+
+      # MySQL
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_PASSWORD: root
+
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+      # ML Service
+      ML_SERVICE_URL: http://anti-scam-ml:8000
+
+    ports:
+      - "8889:8889"
+
+    networks:
+      - anti-scam-network
+
+
+
+  frontend:
+    build:
+      context: ./frontend
+
+    container_name: anti-scam-frontend
+    restart: always
+
+    depends_on:
+      - backend
+
+    ports:
+      - "80:80"
+
+    networks:
+      - anti-scam-network
+
+
+
+volumes:
+
+  mysql_data:
+
+
+networks:
+
+  anti-scam-network:
+    driver: bridge
