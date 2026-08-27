@@ -12,7 +12,11 @@
 .pageHeader h1 { margin: 0; color: #f7f8fb; font-size: 30px; letter-spacing: -.03em; }
 .pageHeader > div:first-child > span { display: block; margin-top: 5px; color: #697589; font-size: 13px; }
 .headerButtons { display: flex; gap: 9px; }
+.exportNotice { align-self: center; margin-right: 3px; color: #8ee8d8; font-size: 13px; animation: noticeIn .25s ease both; }
 .headerButtons button { height: 40px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 10px; background: rgba(255,255,255,.025); color: #a9b3c2; font-size: 13px; cursor: pointer; }
+.headerButtons .exportButton { border-color: rgba(94,234,212,.28); background: linear-gradient(135deg,rgba(20,184,166,.12),rgba(99,102,241,.08)); color: #b9f4e8; }
+.headerButtons .exportButton:hover { border-color: rgba(94,234,212,.48); box-shadow: 0 8px 24px rgba(20,184,166,.08); }
+.headerButtons button:disabled { opacity: .56; cursor: wait; }
 .headerButtons .primaryButton { border-color: rgba(129,140,248,.35); background: rgba(99,102,241,.14); color: #c7d2fe; }
 
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin: 22px 0 18px; }
@@ -130,6 +134,8 @@
 .logItem strong { color: #cbd3dd; font-size: 13px; }
 .logItem small { color: #6d788b; font-size: 11px; }
 .boundaryNote { margin: 14px 0 0; color: #596579; font-size: 12px; text-align: center; }
+
+@keyframes noticeIn { from { opacity: 0; transform: translateX(6px); } to { opacity: 1; transform: none; } }
 
 /* 关键中文信息保持在演示屏幕上可读，微型状态字仅作为辅助层级。 */
 .stats small, .queueHeader button, .cardTitle > span, .riskBands strong,

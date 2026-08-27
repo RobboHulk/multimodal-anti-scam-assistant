@@ -120,7 +120,41 @@ const OverviewTab = () => (
   </div>
 );
 
-const spectralColumns = Array.from({ length: 64 }, (_, index) => 26 + ((index * 37) % 64));
+const buildWavePeaks = (count, detail = false) => Array.from({ length: count }, (_, index) => {
+  const t = index / (count - 1);
+  const bursts = detail
+    ? [[.09,.06,.48],[.24,.08,.72],[.39,.05,.55],[.57,.09,.86],[.73,.06,.65],[.9,.045,.42]]
+    : [[.08,.025,.38],[.19,.04,.66],[.27,.035,.82],[.36,.055,.71],[.49,.04,.62],[.58,.045,.78],[.7,.035,.59],[.79,.04,.73],[.9,.05,.54]];
+  const envelope = bursts.reduce((value,[center,width,height]) => Math.max(value, height * Math.exp(-Math.pow((t-center)/width,2))), .025);
+  const texture = .45 + .32 * Math.abs(Math.sin(index * 1.83)) + .23 * Math.abs(Math.sin(index * .47 + 1.2));
+  return Math.min(55, 3 + envelope * texture * 64);
+});
+
+const overviewPeaks = buildWavePeaks(210);
+const detailPeaks = buildWavePeaks(190, true);
+
+const WaveformPlot = ({ detail = false }) => {
+  const peaks = detail ? detailPeaks : overviewPeaks;
+  const focusX = detail ? 520 : 333;
+  const focusWidth = detail ? 220 : 209;
+  const labels = detail ? ["08.0","09.0","10.0","11.0","12.0","13.0"] : ["00","04","08","12","16","20","24s"];
+  return (
+    <div className={styles.wavePlot}>
+      <div className={styles.wavePlotTitle}><span>{detail ? "可疑区间局部放大" : "全段波形概览"}</span><b>{detail ? "00:08—00:13" : "24.0s · 16kHz · 单声道"}</b></div>
+      <div className={styles.waveCanvas}>
+        <div className={styles.amplitudeAxis}><span>+0.8</span><span>0</span><span>−0.8</span></div>
+        <svg viewBox="0 0 1000 132" preserveAspectRatio="none" aria-label={detail ? "异常音频区间放大波形" : "完整音频波形"}>
+          <g className={styles.waveGrid}><line x1="0" y1="18" x2="1000" y2="18"/><line x1="0" y1="66" x2="1000" y2="66"/><line x1="0" y1="114" x2="1000" y2="114"/>{labels.slice(1).map((_,index)=><line key={index} x1={(index+1)*(1000/(labels.length-1))} y1="0" x2={(index+1)*(1000/(labels.length-1))} y2="132"/>)}</g>
+          <rect className={styles.waveFocusRect} x={focusX} y="1" width={focusWidth} height="130" />
+          <g className={styles.wavePeaks}>{peaks.map((height,index)=>{const x=index*(1000/(peaks.length-1));return <line key={index} x1={x} y1={66-height} x2={x} y2={66+height}/>;})}</g>
+          <line className={styles.waveBaseline} x1="0" y1="66" x2="1000" y2="66"/>
+        </svg>
+        <div className={styles.waveFocusLabel}>{detail ? "相位跳变与谐波异常" : "模型关注区间"}</div>
+      </div>
+      <div className={styles.waveTimeAxis}>{labels.map((label)=><span key={label}>{label}</span>)}</div>
+    </div>
+  );
+};
 
 const ContentTab = () => {
   const [viewMode, setViewMode] = useState("heatmap");
@@ -129,18 +163,19 @@ const ContentTab = () => {
     <div className={styles.tabContent}>
       <section className={styles.visualForensics}>
         <div className={styles.forensicStage}>
-          <div className={styles.forensicHeader}><div><span className={styles.sectionKicker}>图像取证</span><h3>工作人员资质证明.jpg</h3></div><span className={styles.highBadge}>发现 3 处异常区域</span></div>
+          <div className={styles.forensicHeader}><div><span className={styles.sectionKicker}>图像取证</span><h3>银行工作人员资质证明.png</h3></div><span className={styles.highBadge}>发现 3 处异常区域</span></div>
           <div className={[styles.imageViewport, styles[viewMode]].join(" ")}>
-            <img src="/demo/fictional-bank-credential.jpg" alt="虚构银行工作人员资质证明演示图" />
+            <img src="/demo/bank-credential-demo.png" alt="虚构银行工作人员资质证明演示图" />
             <div className={styles.scanGrid} /><div className={styles.scanBeam} />
             {viewMode === "heatmap" && <>
               <span className={[styles.heatBlob,styles.faceHeat].join(" ")} /><span className={[styles.heatBlob,styles.sealHeat].join(" ")} /><span className={[styles.heatBlob,styles.textHeat].join(" ")} />
-              <span className={[styles.regionBox,styles.faceBox].join(" ")}><b>R1</b></span><span className={[styles.regionBox,styles.sealBox].join(" ")}><b>R2</b></span><span className={[styles.regionBox,styles.textBox].join(" ")}><b>R3</b></span>
+              <span className={[styles.regionBox,styles.faceBox].join(" ")}><b>R1 · 87</b></span><span className={[styles.regionBox,styles.sealBox].join(" ")}><b>R2 · 82</b></span><span className={[styles.regionBox,styles.textBox].join(" ")}><b>R3 · 76</b></span>
+              <span className={styles.heatScale}><b>异常贡献</b><i /><small><em>低</em><em>高</em></small></span>
             </>}
             <div className={styles.viewportHud}><span>图像 1536 × 1024</span><span>局部伪造定位已完成</span></div>
           </div>
           <div className={styles.modeRail}>
-            {modes.map((mode) => <button type="button" onClick={() => setViewMode(mode.key)} className={viewMode===mode.key?styles.modeActive:""} key={mode.key}><span className={styles[`${mode.key}Thumb`]}><img src="/demo/fictional-bank-credential.jpg" alt="" /></span><strong>{mode.label}</strong></button>)}
+            {modes.map((mode) => <button type="button" onClick={() => setViewMode(mode.key)} className={viewMode===mode.key?styles.modeActive:""} key={mode.key}><span className={styles[`${mode.key}Thumb`]}><img src="/demo/bank-credential-demo.png" alt="" /></span><strong>{mode.label}</strong></button>)}
           </div>
         </div>
 
@@ -157,16 +192,9 @@ const ContentTab = () => {
 
       <section className={styles.audioLab}>
         <div className={styles.spectrogramCard}>
-          <div className={styles.forensicHeader}><div><span className={styles.sectionKicker}>音频取证</span><h3>客服通话录音.mp3</h3></div><span className={styles.timeBadge}>异常区间 00:08—00:13</span></div>
-          <div className={styles.spectrogramShell}>
-            <div className={styles.frequencyAxis}><span>8k</span><span>4k</span><span>2k</span><span>0</span></div>
-            <div className={styles.spectrogram}>
-              {spectralColumns.map((height,index) => <i key={index} style={{ height: `${height}%`, opacity: .45 + (height % 30) / 60 }} />)}
-              <div className={styles.audioFocus}><span>相位与谐波异常</span></div><div className={styles.audioCursor} />
-            </div>
-          </div>
-          <svg className={styles.waveform} viewBox="0 0 1000 105" preserveAspectRatio="none" aria-label="音频波形"><path d="M0 52 L20 44 L35 66 L52 24 L68 78 L87 49 L103 61 L121 17 L139 86 L158 45 L177 69 L196 29 L216 72 L235 19 L253 89 L272 41 L291 67 L310 47 L329 61 L347 14 L365 94 L383 9 L401 98 L420 16 L438 91 L457 11 L475 95 L494 22 L512 83 L531 31 L549 75 L568 45 L587 62 L606 20 L625 87 L644 36 L663 74 L682 27 L701 82 L720 43 L739 67 L758 31 L777 85 L796 48 L815 64 L834 18 L853 91 L872 39 L891 72 L910 31 L929 81 L948 46 L967 63 L985 48 L1000 54" /></svg>
-          <div className={styles.timelineMarks}><span>00:00</span><span>00:06</span><span>00:12</span><span>00:18</span><span>00:24</span></div>
+          <div className={styles.forensicHeader}><div><span className={styles.sectionKicker}>音频取证</span><h3>通话录音.m4a</h3></div><span className={styles.timeBadge}>异常区间 00:08—00:13</span></div>
+          <div className={styles.audioWaveStack}><WaveformPlot /><WaveformPlot detail /></div>
+          <div className={styles.audioFeatureStrip}><span><i />语音活动检测<b>12 个语音段</b></span><span><i />说话人一致性<b>单一声源</b></span><span><i />伪造定位窗口<b>1.7 秒</b></span></div>
         </div>
         <aside className={styles.audioEvidence}>
           <PanelTitle title="可解释音频线索" meta="3 项相互印证" />
@@ -247,7 +275,7 @@ const IntentTab = () => {
 };
 
 const graphNodes = [
-  {id:"M-01",x:75,y:125,type:"material",label:"资质图",detail:"工作人员资质证明.jpg",score:"原始",status:"已固定"},{id:"M-02",x:75,y:315,type:"material",label:"通话音频",detail:"客服通话录音.mp3",score:"原始",status:"已固定"},{id:"M-03",x:75,y:505,type:"material",label:"消息与链接",detail:"用户提交的文本与演示域名",score:"原始",status:"已固定"},
+  {id:"M-01",x:75,y:125,type:"material",label:"资质图",detail:"银行工作人员资质证明.png",score:"原始",status:"已固定"},{id:"M-02",x:75,y:315,type:"material",label:"通话音频",detail:"通话录音.m4a",score:"原始",status:"已固定"},{id:"M-03",x:75,y:505,type:"material",label:"消息与链接",detail:"用户提交的文本与演示域名",score:"原始",status:"已固定"},
   {id:"F-01",x:255,y:75,type:"feature",label:"照片边界",detail:"发丝边缘噪声不连续",score:"0.87",status:"异常"},{id:"F-02",x:255,y:170,type:"feature",label:"印章残差",detail:"印章与纸张频域纹理冲突",score:"0.82",status:"异常"},{id:"F-03",x:255,y:265,type:"feature",label:"谐波截断",detail:"高频谐波出现非自然截断",score:"0.84",status:"异常"},{id:"F-04",x:255,y:360,type:"feature",label:"韵律异常",detail:"呼吸与语句间隔过于规则",score:"0.78",status:"可疑"},{id:"F-05",x:255,y:455,type:"feature",label:"主体不符",detail:"域名与声称银行主体无关",score:"0.93",status:"异常"},{id:"F-06",x:255,y:550,type:"feature",label:"凭据表单",detail:"页面索取密码与短信验证码",score:"0.96",status:"高危"},
   {id:"T-01",x:470,y:110,type:"analysis",label:"图像取证",detail:"局部注意、残差和版面联合",score:"0.89",status:"完成"},{id:"T-02",x:470,y:230,type:"analysis",label:"来源核验",detail:"元数据与生成内容标识解析",score:"0.76",status:"完成"},{id:"T-03",x:470,y:350,type:"analysis",label:"音频鉴真",detail:"频谱、相位与韵律联合",score:"0.86",status:"完成"},{id:"T-04",x:470,y:470,type:"analysis",label:"域名核验",detail:"注册主体、TLS与跳转链",score:"0.94",status:"完成"},{id:"T-05",x:470,y:570,type:"analysis",label:"页面分析",detail:"表单字段与提交目标解析",score:"0.95",status:"完成"},
   {id:"C-01",x:720,y:105,type:"claim",label:"身份冒充",detail:"多材料共同塑造虚假身份",score:"0.92",status:"已支持"},{id:"C-02",x:720,y:260,type:"claim",label:"合成语音",detail:"音频存在合成异常线索",score:"0.86",status:"已支持"},{id:"C-03",x:720,y:415,type:"claim",label:"凭据窃取",detail:"链接和页面指向凭据收集",score:"0.95",status:"已支持"},{id:"C-04",x:720,y:555,type:"claimWeak",label:"账号已泄露",detail:"缺少用户执行和后果证据",score:"不足",status:"已撤回"},

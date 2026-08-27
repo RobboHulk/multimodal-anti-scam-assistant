@@ -37,6 +37,6 @@ Thumbs.db
 logs/
 *.log
 uploads/
+output/
 tmp/
 temp/
-

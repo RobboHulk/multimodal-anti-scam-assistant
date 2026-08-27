@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import Nav from "../../layouts/Nav/Nav";
 import styles from "./Reports.module.css";
 
@@ -24,11 +26,170 @@ const auditEvents = [
   ["20:41:30", "隐私处理", "手机号与验证码已遮蔽，域名保留用于核验"],
 ];
 
+const escapeHtml = (text = "") => text
+  .replace(/&/g, "&amp;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
+
+const inlineMarkdown = (text = "") => escapeHtml(text).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+
+const buildReportMarkdown = (report) => `# 智鉴安澜安全研判报告
+
+**${report.title}**
+
+报告编号：${report.id}
+生成时间：2026-08-24 20:42
+综合风险：${report.risk}
+证据数量：${report.evidence} 项
+
+## AI 研判结论
+
+现有图片、通话录音与链接共同支持“虚假银行工作人员身份冒充并诱导用户提交账户凭据”的判断。资质图片负责建立权威身份，通话内容制造账户异常与限时处理压力，仿冒页面进一步索取账号、密码和短信验证码。
+
+用户明确表示尚未打开链接、提交凭据或转账，因此当前没有账号已泄露、账户已被接管或资金已经损失的证据。攻击链仍可在凭据请求阶段中断。
+
+> 综合结论：建议将本次事件按高风险社会工程诱导处置，同时保留“尚未发生实际损害”的判断边界。
+
+## 风险可视化
+
+- 内容伪造：84/100
+- 网络载荷：91/100
+- 认知诱导：89/100
+- 证据充分性：88/100
+
+## 多模态证据分析
+
+- **IMG-HEAT-01｜资质图片：** 人物边界、印章叠加和编号区域存在局部噪声、频域纹理与版面一致性异常，图像伪造风险为 87。
+- **AUDIO-02｜通话录音：** 00:08—00:13 出现谐波截断、相位跳变及韵律过度规则等合成语音线索，音频风险为 86。
+- **URL-03｜核验链接：** 域名与声称的银行主体不一致，页面包含密码和短信验证码收集字段，网络载荷风险为 95。
+- **META-01｜来源信息：** 文件创建软件字段与时间链不完整，未发现可验证的生成内容标识或 C2PA 来源凭证。
+
+## 攻击意图链
+
+身份接触 → 资质塑造 → 信任强化 → 紧迫施压 → 凭据请求 → 账户接管（条件推演）
+
+已观察到攻击推进至“凭据请求”；“账户接管”仅为用户提交凭据后的条件性推演，不作为已经发生的事实。
+
+## 处置建议
+
+- **立即停止：** 不要打开对方提供的链接，不要提交账号、密码或短信验证码。
+- **独立核验：** 通过银行官方 App、银行卡背面的客服电话或线下网点核验身份。
+- **保留材料：** 保存原始资质图、通话录音、聊天记录、链接和页面截图。
+- **误点处置：** 如果已经访问页面或输入过信息，立即修改网银密码并联系银行限制高风险操作。
+
+## 结论审计与边界
+
+- 有效证据引用：18 项
+- 已支持原子主张：3 项
+- 已撤回主张：1 项（“用户账号已经泄露”缺少执行与后果证据）
+- 报告完整性：SM3 摘要验证通过
+
+本报告用于个人安全研判与材料复核，不作为公安定性、司法鉴定或身份认定结论。`;
+
+const markdownToReportHtml = (markdown) => {
+  const sections = markdown.trim().split(/\n(?=## )/);
+  return sections.map((section, sectionIndex) => {
+    const lines = section.split("\n").filter((line) => line.trim());
+    const heading = lines.shift() || "";
+    const title = heading.replace(/^#{1,2}\s+/, "");
+    const body = [];
+    let listOpen = false;
+    const closeList = () => {
+      if (listOpen) body.push("</ul>");
+      listOpen = false;
+    };
+
+    lines.forEach((line) => {
+      const risk = line.match(/^- (.+?)：(\d+)\/100$/);
+      if (risk) {
+        closeList();
+        body.push(`<div style="display:grid;grid-template-columns:120px 1fr 44px;align-items:center;gap:14px;margin:12px 0;color:#334155;font-size:15px"><span>${escapeHtml(risk[1])}</span><i style="height:10px;overflow:hidden;border-radius:99px;background:#e2e8f0"><b style="display:block;width:${risk[2]}%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#6366f1,#ef476f)"></b></i><strong style="color:#0f172a;text-align:right">${risk[2]}</strong></div>`);
+        return;
+      }
+      if (line.startsWith("- ")) {
+        if (!listOpen) {
+          body.push('<ul style="margin:8px 0;padding-left:24px;color:#334155">');
+          listOpen = true;
+        }
+        body.push(`<li style="margin:8px 0;line-height:1.72">${inlineMarkdown(line.slice(2))}</li>`);
+        return;
+      }
+      closeList();
+      if (line.startsWith("> ")) {
+        body.push(`<blockquote style="margin:14px 0;padding:13px 16px;border-left:4px solid #6366f1;border-radius:0 9px 9px 0;background:#eef2ff;color:#312e81;line-height:1.72">${inlineMarkdown(line.slice(2))}</blockquote>`);
+      } else if (line.includes("→")) {
+        body.push(`<div style="display:flex;flex-wrap:wrap;gap:8px;margin:15px 0">${line.split("→").map((item, index, array) => `<span style="padding:8px 11px;border:${item.includes("条件推演") ? "1px dashed #ef476f" : "1px solid #c7d2fe"};border-radius:8px;background:${item.includes("条件推演") ? "#fff1f2" : "#eef2ff"};color:${item.includes("条件推演") ? "#be123c" : "#3730a3"};font-size:13px">${escapeHtml(item.trim())}</span>${index < array.length - 1 ? '<b style="align-self:center;color:#94a3b8">→</b>' : ""}`).join("")}</div>`);
+      } else {
+        body.push(`<p style="margin:9px 0;color:#334155;font-size:15px;line-height:1.78">${inlineMarkdown(line.replace(/\s{2}$/, ""))}</p>`);
+      }
+    });
+    closeList();
+
+    return `<section data-pdf-section style="margin:0 0 18px;padding:${sectionIndex === 0 ? "28px 30px" : "22px 26px"};border:1px solid #dbe3ef;border-radius:14px;background:#fff;box-shadow:0 8px 26px rgba(15,23,42,.05)"><${sectionIndex === 0 ? "h1" : "h2"} style="margin:0 0 15px;color:#0f172a;font-size:${sectionIndex === 0 ? "30px" : "21px"};letter-spacing:-.02em">${escapeHtml(title)}</${sectionIndex === 0 ? "h1" : "h2"}>${body.join("")}</section>`;
+  }).join("");
+};
+
 const Reports = () => {
   const [selectedId, setSelectedId] = useState(reportList[0].id);
   const [panel, setPanel] = useState("报告摘要");
   const [integrity, setIntegrity] = useState("valid");
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportNotice, setExportNotice] = useState("");
   const selected = useMemo(() => reportList.find((item) => item.id === selectedId), [selectedId]);
+
+  const exportPdf = async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    setExportNotice("正在生成 PDF…");
+    const host = document.createElement("div");
+    host.setAttribute("aria-hidden", "true");
+    host.style.cssText = "position:fixed;left:-12000px;top:0;width:920px;padding:34px;background:#f4f7fb;font-family:'Microsoft YaHei','PingFang SC',sans-serif;z-index:-1";
+    host.innerHTML = markdownToReportHtml(buildReportMarkdown(selected));
+    document.body.appendChild(host);
+
+    try {
+      await document.fonts?.ready;
+      const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+      const pageWidth = 210;
+      const pageHeight = 297;
+      const marginX = 12;
+      const contentWidth = pageWidth - marginX * 2;
+      const bottomLimit = pageHeight - 16;
+      let cursorY = 12;
+      const sections = Array.from(host.querySelectorAll("[data-pdf-section]"));
+
+      for (const section of sections) {
+        const canvas = await html2canvas(section, { scale: 2, backgroundColor: "#ffffff", logging: false, useCORS: true });
+        const renderHeight = canvas.height * (contentWidth / canvas.width);
+        if (cursorY + renderHeight > bottomLimit && cursorY > 12) {
+          pdf.addPage();
+          cursorY = 12;
+        }
+        const fittedHeight = Math.min(renderHeight, bottomLimit - cursorY);
+        const fittedWidth = contentWidth * (fittedHeight / renderHeight);
+        pdf.addImage(canvas.toDataURL("image/jpeg", .94), "JPEG", marginX, cursorY, fittedWidth, fittedHeight, undefined, "FAST");
+        cursorY += fittedHeight + 5;
+      }
+
+      const pages = pdf.getNumberOfPages();
+      for (let page = 1; page <= pages; page += 1) {
+        pdf.setPage(page);
+        pdf.setFontSize(9);
+        pdf.setTextColor(100, 116, 139);
+        pdf.text(`VERITIDE · ${selected.id}`, marginX, 290);
+        pdf.text(`${page} / ${pages}`, 198, 290, { align: "right" });
+      }
+      pdf.save(`智鉴安澜-${selected.id}-安全研判报告.pdf`);
+      setExportNotice("PDF 已导出");
+      window.setTimeout(() => setExportNotice(""), 2600);
+    } catch (error) {
+      console.error("PDF export failed", error);
+      setExportNotice("导出失败，请重试");
+    } finally {
+      host.remove();
+      setIsExporting(false);
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -37,7 +198,8 @@ const Reports = () => {
         <header className={styles.pageHeader}>
           <div><h1>安全报告</h1><span>个人安全研判记录</span></div>
           <div className={styles.headerButtons}>
-            <button type="button">导出脱敏副本</button>
+            {exportNotice && <span className={styles.exportNotice}>{exportNotice}</span>}
+            <button type="button" className={styles.exportButton} onClick={exportPdf} disabled={isExporting}>{isExporting ? "正在生成…" : "一键导出 PDF"}</button>
             <button type="button" className={styles.primaryButton} onClick={() => { window.location.href = "/detect"; }}>发起新研判</button>
           </div>
         </header>
